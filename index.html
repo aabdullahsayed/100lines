@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speak English</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; color: #333; text-align: center; padding: 50px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    #prompt { margin: 20px 0; font-size: 24px; }
+    #result { margin-top: 20px; font-size: 18px; color: green; }
+  </style>
+</head>
+<body>
+  <h1>Practice Speaking English</h1>
+  <div id="prompt">Hello, how are you?</div>
+  <button onclick="startRecognition()">Speak</button>
+  <div id="result"></div>
+
+  <script>
+    const prompts = ["Hello, how are you?", "What is your name?", "Where do you live?", "How old are you?", "What do you do?"];
+    document.getElementById('prompt').innerText = prompts[Math.floor(Math.random() * prompts.length)];
+    
+    function startRecognition() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('result').innerText = `You said: ${transcript}`;
+      };
+      recognition.start();
+    }
+  </script>
+</body>
+</html>
